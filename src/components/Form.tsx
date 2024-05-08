@@ -27,17 +27,17 @@ export default function Form({ setItems }: IFormProps) {
   }
 
   return (
-    <form className="form flex flex-row items-center gap-4 rounded-lg py-2 px-1" onSubmit={submit}>
+    <form className="flex flex-row items-center gap-4 rounded-lg py-2 px-1" onSubmit={submit}>
       <label htmlFor="todo" className="w-full">
         <input
           type="text"
           name="todo"
           id="todo"
-          className="p-3 w-full rounded-md bg-primary-900/30 text-white text-sm"
+          className="p-3 w-full rounded-md bg-primary-950/30 text-white text-sm hover:bg-primary-950/50"
           placeholder="Write Your next task"
         />
       </label>
-      <button type="submit" className="flex items-center p-3 rounded-md font-semibold bg-primary text-white">
+      <button type="submit" className="flex items-center p-3 rounded-md font-semibold transition-colors bg-primary/50 text-white hover:bg-primary/75">
         <span className="sr-only">Submit</span>
         <FaPlus />
       </button>

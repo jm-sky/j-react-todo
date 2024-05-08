@@ -18,13 +18,11 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: rgb(var(--background-end-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))), rgb(var(--background-start-rgb))
+              conic-gradient(at 50% -1rem, #0007, #fff7, #0007);
 }
+
 
 @layer utilities {
   .text-balance {

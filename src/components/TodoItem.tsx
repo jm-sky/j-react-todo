@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { FaCheck, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaCheck, FaTrash } from 'react-icons/fa';
 
 export interface ITodoItem {
   id?: string
@@ -24,9 +24,12 @@ export default function TodoItem({ item, setItems }: ITodoItemProps) {
   }
 
   return (
-    <li id={item.id} className="w-full flex items-center justify-between border border-primary/50 text-white bg-primary-900/75 p-3 rounded-lg">
+    <li
+      id={item.id}
+      className={`w-full flex items-center justify-between p-3 rounded-lg border border-primary/50 text-white bg-primary-900/75 hover:bg-primary-900/85 ${item.isCompleted ? "opacity-50" : ""}`}
+    >
       <button onClick={toggleItem} className="todo-item-left flex items-center text-sm gap-2">
-        <div className="flex items-center justify-center rounded-full bg-black/75 size-6" >
+        <div className="flex items-center justify-center rounded-full bg-black/50 size-6" >
           {item.isCompleted && (<FaCheck />)}
         </div>
         <p className={item.isCompleted ? 'line-through' : ''}>{item.title}</p>

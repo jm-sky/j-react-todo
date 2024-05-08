@@ -1,10 +1,7 @@
 export default function Header() {
   return (
-    <>
-      <svg>
-        <path d="" />
-      </svg>
-      <h1 className="text-4xl lg:text-6xl font-bold text-center">ToDo App</h1>
-    </>
+    <header>
+      <h1 className="py-2 text-3xl lg:text-5xl font-bold mix-blend-overlay text-center drop-shadow">ToDo App</h1>
+    </header>
   )
 }
