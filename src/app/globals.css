@@ -29,3 +29,17 @@ body {
     text-wrap: balance;
   }
 }
+
+[data-tooltip] {
+  @apply relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  @apply absolute top-0 left-1/2 -translate-y-full -translate-x-1/2 bg-black/50 text-white px-3 py-1 text-xs rounded-md z-10;
+  @apply opacity-0 transition-opacity delay-100;
+}
+
+[data-tooltip]:hover::after {
+  @apply opacity-100;
+}
