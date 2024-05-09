@@ -4,12 +4,8 @@ export interface IUseStorageOptions {
   storage?: Storage
 }
 
-const defaultOptions: IUseStorageOptions = {
-  storage: window?.localStorage,
-};
-
-export function useStorage<T extends any>(key: string, defaults: T, options: IUseStorageOptions = defaultOptions): [T, Dispatch<SetStateAction<T>>] {
-  const { storage } = options;
+export function useStorage<T extends any>(key: string, defaults: T, options?: IUseStorageOptions): [T, Dispatch<SetStateAction<T>>] {
+  const storage: Storage | null = options?.storage ? options?.storage : typeof window !== 'undefined' ? window?.localStorage : null;
   
   const parseJson = (json: string): null | T => {
     try {
