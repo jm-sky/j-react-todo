@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 export interface IUseStorageOptions {
   storage?: Storage
@@ -9,7 +9,7 @@ const defaultOptions: IUseStorageOptions = {
 };
 
 export function useStorage<T extends any>(key: string, defaults: T, options: IUseStorageOptions = defaultOptions): [T, Dispatch<SetStateAction<T>>] {
-  const { storage } = options
+  const { storage } = options;
   
   const parseJson = (json: string): null | T => {
     try {
@@ -17,7 +17,7 @@ export function useStorage<T extends any>(key: string, defaults: T, options: IUs
     } catch {
       return null;
     }
-  }
+  };
 
   const loadValue = (): T => {
     const raw = storage?.getItem(key);
@@ -25,15 +25,17 @@ export function useStorage<T extends any>(key: string, defaults: T, options: IUs
     if (!raw) return defaults;
 
     return parseJson(raw) ?? defaults;
-  }
-
-  const saveValue = (value: T): void => {
-    storage?.setItem(key, JSON.stringify(value));
   };
 
   const [value, setter] = useState<T>(loadValue());
 
-  useEffect(() => saveValue(value), [value])
+  useEffect(() => {
+    const saveValue = (value: T): void => {
+      storage?.setItem(key, JSON.stringify(value));
+    };
+
+    saveValue(value);
+  }, [key, value, storage]);
 
   return [
     value,

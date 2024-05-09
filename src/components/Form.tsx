@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { Dispatch, FormEvent, SetStateAction } from 'react'
-import { FaPlus } from 'react-icons/fa'
-import { ITodoItem } from './TodoItem'
+import { Dispatch, FormEvent, SetStateAction } from 'react';
+import { FaPlus } from 'react-icons/fa';
+import { ITodoItem } from './TodoItem';
 
 export interface IFormProps {
   setItems: Dispatch<SetStateAction<ITodoItem[]>>
@@ -13,7 +13,7 @@ export default function Form({ setItems }: IFormProps) {
     id: self.crypto.randomUUID(),
     title,
     isCompleted: false,
-  })
+  });
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,7 +24,7 @@ export default function Form({ setItems }: IFormProps) {
     setItems((prevItems) => [...prevItems, createItem(title) ]);
 
     form.reset();
-  }
+  };
 
   return (
     <form className="flex flex-row items-center gap-4 rounded-lg py-2 px-1" onSubmit={submit}>

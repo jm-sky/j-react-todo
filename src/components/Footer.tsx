@@ -9,5 +9,5 @@ export default function Footer() {
         <span>Dev Made IT</span>
       </a>
     </footer>
-  )
+  );
 }

@@ -1,0 +1,23 @@
+.todo-hero {
+  & progress[value] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+
+    @apply rounded bg-primary-950/30;
+  }
+
+  & progress[value]::-webkit-progress-bar {
+    @apply rounded bg-primary-950/30;
+  }
+
+  & progress[value]::-webkit-progress-value {
+    @apply rounded bg-primary/75;
+
+  }
+
+  & progress[value]::-moz-progress-bar {
+    @apply rounded bg-primary/75;
+  }
+}
