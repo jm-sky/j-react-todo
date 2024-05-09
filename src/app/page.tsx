@@ -1,18 +1,22 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import Footer from '@/components/Footer';
 import Form from '@/components/Form';
 import Header from '@/components/Header';
-import TodoHero from '@/components/TodoHero';
-import { ITodoItem } from '@/components/TodoItem';
-import TodoList from '@/components/TodoList';
 import { useStorage } from '@/hooks/useStorage';
+import { ITaskJson, Task } from '@/models/task.model';
+import Loader from '@/components/Loader';
+
+const TodoHero = dynamic(() => import('@/components/TodoHero'), { ssr: false, loading: () => <Loader /> });
+const TodoList = dynamic(() => import('@/components/TodoList'), { ssr: false, loading: () => <Loader /> });
 
 export default function Home() {
-  const [items, setItems] = useStorage<ITodoItem[]>('todos', []);
+  const deserializer = (items: ITaskJson[]) => items.map(task => Task.fromJson(task));
+  const [items, setItems] = useStorage<Task[]>('tasks', [], { deserializer });
 
   const totalTodos = items.length;
-  const completedTodos = items.filter(item => item.isCompleted).length;
+  const completedTodos = items.filter(item => item.isDone).length;
 
   return (
     <main className="grid justify-center items-start min-h-screen p-4">

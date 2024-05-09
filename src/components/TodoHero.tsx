@@ -15,12 +15,12 @@ export default function TodoHero({ completedTodos, totalTodos}: TodoHeroProps) {
           <p className="text-xl font-semibold drop-shadow">Tasks done</p>
           <p>Keep it up</p>
         </div>
-        <div className="size-20 text-2xl font-semibold flex items-center justify-center bg-gradient-to-b from-primary to-primary-800 shadow shadow-primary/50 rounded-full text-white">
+        <div className="size-20 text-xl font-semibold flex items-center justify-center bg-gradient-to-b from-primary/85 to-primary-800/85 shadow shadow-primary/50 rounded-full text-white">
           {completedTodos}/{totalTodos}
         </div>
       </div>
       <div className="w-full mt-2 -mb-2 px-2">
-        <progress className="h-2 w-full text-primary shadow" value={progress} max="100" />
+        <progress className="h-2 w-full text-primary shadow" value={`${progress}`} max="100" />
       </div>
     </section>
   );

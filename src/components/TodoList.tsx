@@ -9,7 +9,7 @@ export interface ITodoListProps {
 export default function TodoList({ items, setItems }: ITodoListProps) {
 
   const sorted = items.toSorted((itemA, itemB): number => {
-    return (itemA.isCompleted ? 1 : 0) - (itemB.isCompleted ? 1 : 0);
+    return (itemA.isDone ? 1 : 0) - (itemB.isDone ? 1 : 0);
   });
 
   return (

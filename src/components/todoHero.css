@@ -5,19 +5,23 @@
     appearance: none;
     border: none;
 
+    @apply transition-[width] duration-500;
     @apply rounded bg-primary-950/30;
   }
 
   & progress[value]::-webkit-progress-bar {
+    @apply transition-[width] duration-500;
     @apply rounded bg-primary-950/30;
   }
 
   & progress[value]::-webkit-progress-value {
+    @apply transition-[width] duration-500;
     @apply rounded bg-primary/75;
 
   }
 
   & progress[value]::-moz-progress-bar {
+    @apply transition-[width] duration-500;
     @apply rounded bg-primary/75;
   }
 }
