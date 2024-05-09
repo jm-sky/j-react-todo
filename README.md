@@ -3,7 +3,8 @@ Simple todo app written in [React](https://react.dev/) using [Next.js](https://n
 
 Using: TypeScript, TailwindCSS, FontAwesome...
 
-![obraz](https://github.com/jm-sky/j-react-todo/assets/17783569/ea4bdf38-9d7b-442b-93c5-9c0f247972e5)
+![obraz](https://github.com/jm-sky/j-react-todo/assets/17783569/a2e0256f-e855-4baa-ba58-34ee7d37d342)
+
 
 ## Getting Started
 
