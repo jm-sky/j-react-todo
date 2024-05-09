@@ -1,10 +1,11 @@
-import { Dispatch, FormEvent, FormEventHandler, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { FaCheck, FaEdit, FaTrash } from 'react-icons/fa';
 import { FaTimes } from 'react-icons/fa';
+import TodoMenuButton from './TodoMenuButton';
 
 export interface ITodoItem {
-  id?: string
-  title?: string
+  id: string
+  title: string
   isCompleted?: boolean
 }
 
@@ -31,6 +32,8 @@ export default function TodoItem({ item, setItems }: ITodoItemProps) {
     setEditing(edit => !edit);
   };
 
+  useEffect(() => setTitle(item.title), [isEditing, item]);
+
   const saveEdition = () => {
     item.title = title;
 
@@ -40,8 +43,56 @@ export default function TodoItem({ item, setItems }: ITodoItemProps) {
 
   function CheckMark() {
     return (
-      <div className="flex items-center justify-center rounded-full bg-black/50 size-6" >
-        {item.isCompleted && (<FaCheck />)}
+      <button onClick={toggleItem}>
+        <div className="flex items-center justify-center rounded-full bg-black/50 size-6" >
+          {item.isCompleted && (<FaCheck />)}
+        </div>
+      </button>
+    );
+  }
+
+  function Menu() {
+    return (
+      <div className="flex flex-row items-center justify-end gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+        <TodoMenuButton onClick={toggleEdition} tooltip="Edit">
+          <span className="sr-only">Edit</span>
+          <FaEdit />
+        </TodoMenuButton>
+        <TodoMenuButton onClick={deleteItem} tooltip="Delete">
+          <span className="sr-only">Delete</span>
+          <FaTrash />
+        </TodoMenuButton>
+      </div>
+    );
+  }
+
+  function EditionMenu() {
+    return (
+      <div className="flex flex-row items-center justify-end gap-2">
+        <TodoMenuButton onClick={saveEdition} tooltip="Save">
+          <span className="sr-only">Save</span>
+          <FaCheck />
+        </TodoMenuButton>
+        <TodoMenuButton onClick={toggleEdition} tooltip="Cancel">
+          <span className="sr-only">Cancel</span>
+          <FaTimes />
+        </TodoMenuButton>
+      </div>
+    );
+  }
+
+  function Content() {
+    return (
+      <p className={`${isEditing ? 'w-0' : 'w-full'} ${item.isCompleted ? 'line-through' : ''} text-nowrap overflow-hidden transition-all`}>
+        {item.title}
+      </p>
+    );
+  }
+
+  function Edition() {
+    return (
+      <div className="w-full">
+        <input name="title" type="text" value={title} onChange={e => setTitle(e.target.value)} className="w-0 min-w-full text-sm py-1 px-3 bg-primary-950/50 rounded-md text-white font-normal" />
       </div>
     );
   }
@@ -54,43 +105,13 @@ export default function TodoItem({ item, setItems }: ITodoItemProps) {
   ].join(' ');
 
   return (
-    <li id={item.id} className={classes}>
-      {
-        isEditing ? (
-          <>
-            <div className="w-full">
-              <input value={title} onChange={e => setTitle(e.target.value)} className="w-0 min-w-full py-1 px-3 bg-primary-950/50 rounded-md text-white font-normal" />
-            </div>
-            <div className="flex items-center justify-end gap-2">
-              <button onClick={saveEdition} className="p-0.5 flex items-center text-primary/75 hover:text-primary" data-tooltip="Save">
-                <span className="sr-only">Save</span>
-                <FaCheck />
-              </button>
-              <button type="button" onClick={toggleEdition} className="p-0.5 flex items-center text-primary/75 hover:text-primary" data-tooltip="Cancel">
-                <span className="sr-only">Cancel</span>
-                <FaTimes />
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <button onClick={toggleItem} className="flex flex-row items-center gap-3 w-full">
-              <CheckMark />
-              <p className={item.isCompleted ? 'line-through' : ''}>{item.title}</p>
-            </button>
-            <div className="opacity-0 transition-opacity group-hover:opacity-100 flex items-center justify-end gap-1">
-              <button type="button" onClick={toggleEdition} className="p-0.5 flex items-center text-primary/75 hover:text-primary" data-tooltip="Edit">
-                <span className="sr-only">Edit</span>
-                <FaEdit />
-              </button>
-              <button type="button" onClick={deleteItem} className="p-0.5 flex items-center text-primary/75 hover:text-primary"  data-tooltip="Delete">
-                <span className="sr-only">Delete</span>
-                <FaTrash />
-              </button>
-            </div>
-          </>
-        )
-      }
+    <li id={item.id} className={`${classes} relative`}>
+      <div className="w-full flex flex-row items-center gap-3 overflow-hidden">
+        { !isEditing && <CheckMark /> }
+        { !isEditing && <Content /> }
+        { isEditing && <Edition /> }
+      </div>
+      { isEditing ? <EditionMenu /> : <Menu /> }
     </li>
   );
 }
